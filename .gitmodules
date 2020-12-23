@@ -1,0 +1,3 @@
+[submodule "app/src/main/cpp/GetAway"]
+	path = app/src/main/cpp/GetAway
+	url = https://www.github.com/HassanSajjad-302/GetAway
