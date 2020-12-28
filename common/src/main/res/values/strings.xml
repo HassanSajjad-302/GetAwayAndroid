@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name_server">server-GetAway</string>
+    <string name="app_name_client">client-GetAway</string>
+</resources>
