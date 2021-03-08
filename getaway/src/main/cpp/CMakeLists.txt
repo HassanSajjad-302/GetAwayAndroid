@@ -4,6 +4,7 @@
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.10.2)
+
 # Declares and names the project.
 
 project("myapplication")
@@ -20,7 +21,7 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        ../../../../common/src/main/cpp/native-lib.cpp )
+        ../../../../common/src/main/cpp/native-lib.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -49,6 +50,6 @@ target_link_libraries( # Specifies the target library.
 
 
 add_subdirectory(../../../../common/src/main/cpp/GetAway
-        ../../../.cxx/GetAway)
+        ../../../../.cxx/GetAway)
 
-target_link_libraries(native-lib PRIVATE GetAway)
+target_link_libraries(native-lib PRIVATE GetAway-lib)

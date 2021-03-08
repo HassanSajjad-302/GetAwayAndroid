@@ -3,15 +3,8 @@
 #include <iostream>
 #include "resourceStrings.hpp"
 #include "satiAndroid.hpp"
-
-#ifdef CLIENTMACRO
-#include "clientHome.hpp"
-#include "androidClientMain.hpp"
-#endif
-#ifdef SERVERMACRO
-#include "serverHome.hpp"
-#include "androidServerMain.hpp"
-#endif
+#include "androidMain.hpp"
+#include "home.hpp"
 namespace CacheIoContextThread{
     JNIEnv* envGlobal;
     jobject objGlobal;
@@ -23,12 +16,7 @@ namespace CacheMainThread{
 }
 
 asio::io_context io;
-#ifdef CLIENTMACRO
-androidClientMain a{io};
-#endif
-#ifdef SERVERMACRO
-androidServerMain a{io};
-#endif
+androidMain a{io};
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_myapplication_MainActivity_userTerminalInput(JNIEnv *env, jobject obj,
@@ -161,7 +149,8 @@ void sati::setInputType(inputType nextReceiveInputType) {
        nextReceiveInputType == inputType::HOMEIPADDRESS ||
        nextReceiveInputType == inputType::HOMEASSIGNSERVERNAME ||
        nextReceiveInputType == inputType::HOMESTARTSERVER ||
-       nextReceiveInputType == inputType::HOMECLIENTNAME){
+       nextReceiveInputType == inputType::HOMECLIENTNAMEJOININGSERVER ||
+       nextReceiveInputType == inputType::HOMECLIENTNAMESTARTINGSERVER){
         numberKeyBoard = false;
         g_env->CallVoidMethod(g_obj, g_mid3, JNI_FALSE);
 
@@ -221,33 +210,15 @@ namespace Cat{
         }
     }
 }
-#ifdef CLIENTMACRO
-void androidClientMain::run() {
+
+void androidMain::run() {
     thr = std::thread([s = std::ref(io)](){
         sati::getInstanceFirstTime(s.get());
 
-        std::make_shared<clientHome>(clientHome(s.get()))->run();
+        std::make_shared<home>(home(s.get()))->run();
 
         s.get().run();
         Cat::exitGame();
         //End Game Here Below This;
     });
 }
-#endif
-
-
-
-#ifdef SERVERMACRO
-
-void androidServerMain::run() {
-    thr = std::thread([s = std::ref(io)](){
-        sati::getInstanceFirstTime(s.get());
-
-        std::make_shared<serverHome>(serverHome(s.get()))->run();
-
-        s.get().run();
-        Cat::exitGame();
-        //End Game Here Below This;
-    });
-}
-#endif

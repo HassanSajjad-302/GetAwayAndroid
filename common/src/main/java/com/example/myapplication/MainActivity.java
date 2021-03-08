@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             if(numberKeyBoard){
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                editText.setInputType(InputType.TYPE_CLASS_DATETIME);
             }else{
                 editText.setInputType(InputType.TYPE_CLASS_TEXT);
             }
