@@ -1,0 +1,2 @@
+include 'GetAway'
+rootProject.name = "GetAway"
